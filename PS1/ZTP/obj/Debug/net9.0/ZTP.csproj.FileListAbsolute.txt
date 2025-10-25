@@ -12,3 +12,4 @@ C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\
 C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.pdb
 C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.genruntimeconfig.cache
 C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ref\ZTP.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.sourcelink.json

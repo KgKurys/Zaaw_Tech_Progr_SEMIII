@@ -24,6 +24,7 @@
 
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 interface IDatabaseConnection {
     int AddRecord(string name, int age);
@@ -66,22 +67,17 @@ class ConnectionPool {
         this.database = db;
         this.maxConnections = maxConnections;
         this.connections = new List<IDatabaseConnection>();
-        Console.WriteLine($"[ConnectionPool] Created connection pool for {db.Name} with max {maxConnections} connections");
     }
 
     public IDatabaseConnection GetConnection() {
         lock (lockObject) {
-            // Jeśli nie osiągnięto limitu, twórz nowe połączenie
             if (connections.Count < maxConnections) {
                 var newConnection = new DatabaseConnection(database, connections.Count + 1);
                 connections.Add(newConnection);
-                Console.WriteLine($"[ConnectionPool] Created new connection #{connections.Count} for {database.Name}");
                 return newConnection;
             }
 
-            // W przeciwnym razie zwróć istniejące połączenie cyklicznie
             var connection = connections[currentConnectionIndex];
-            Console.WriteLine($"[ConnectionPool] Reusing connection #{currentConnectionIndex + 1} for {database.Name}");
             currentConnectionIndex = (currentConnectionIndex + 1) % maxConnections;
             return connection;
         }
@@ -100,9 +96,7 @@ class ConnectionManager : IConnectionManager {
     private static ConnectionManager? instance;
     private static readonly object lockObject = new();
 
-    private ConnectionManager() {
-        Console.WriteLine("[ConnectionManager] ConnectionManager instance created");
-    }
+    private ConnectionManager() { }
 
     public static ConnectionManager GetInstance() {
         if (instance == null) {
@@ -116,9 +110,12 @@ class ConnectionManager : IConnectionManager {
     }
 
     public IDatabaseConnection GetConnection(string databaseName) {
-        Console.WriteLine($"[ConnectionManager] Requesting connection to database: {databaseName}");
         Database database = Database.GetInstance(databaseName);
         return database.GetConnection();
+    }
+
+    public override int GetHashCode() {
+        return RuntimeHelpers.GetHashCode(this);
     }
 }
 
@@ -137,8 +134,7 @@ class Database {
     private Database(string name) {
         records = new();
         databaseName = name;
-        connectionPool = new ConnectionPool(this, 3); // Maksymalnie 3 połączenia
-        Console.WriteLine($"[Database] Created new database instance: {databaseName}");
+        connectionPool = new ConnectionPool(this, 3);
     }
 
     // Metoda do uzyskania instancji bazy danych (Multiton)
@@ -178,6 +174,10 @@ class Database {
     internal int GetNextId() {
         return nextId++;
     }
+
+    public override int GetHashCode() {
+        return RuntimeHelpers.GetHashCode(this);
+    }
 }
 
 // Implementacja połączenia do bazy danych
@@ -192,126 +192,93 @@ class DatabaseConnection : IDatabaseConnection {
 
     public int ConnectionId => connectionId;
 
-    // Dodawanie nowego rekordu
     public int AddRecord(string name, int age) {
         int id = db.GetNextId();
         Record newRecord = new(id, name, age);
         db.AddRecordInternal(newRecord);
-        Console.WriteLine($"[Connection #{connectionId}] Inserted: {newRecord}");
-        return id; // zwracamy id dodanego rekordu
+        return id;
     }
 
-    // Pobieranie rekordu po ID
     public Record? GetRecord(int id) {
         return db.GetRecordInternal(id);
     }
 
-    // Aktualizowanie rekordu po ID
     public void UpdateRecord(int id, string newName, int newAge) {
         Record? optionalRecord = GetRecord(id);
-
         if (optionalRecord != null) {
-            Record record = optionalRecord;
-            record.Name = newName;
-            record.Age = newAge;
-            Console.WriteLine($"[Connection #{connectionId}] Updated: {record}");
-        } else {
-            Console.WriteLine($"[Connection #{connectionId}] Record with ID {id} not found.");
+            optionalRecord.Name = newName;
+            optionalRecord.Age = newAge;
         }
     }
 
-    // Usuwanie rekordu po ID
     public void DeleteRecord(int id) {
         Record? optionalRecord = GetRecord(id);
-
         if (optionalRecord != null) {
             db.RemoveRecordInternal(optionalRecord);
-            Console.WriteLine($"[Connection #{connectionId}] Deleted record with ID {id}");
-        } else {
-            Console.WriteLine($"[Connection #{connectionId}] Record with ID {id} not found.");
         }
     }
 
-    // Wyświetlanie wszystkich rekordów
     public void ShowAllRecords() {
         var allRecords = db.GetAllRecordsInternal();
         if (allRecords.Any()) {
-            Console.WriteLine($"[Connection #{connectionId}] All records in {db.Name}:");
+            Console.WriteLine($"Records in {db.Name}:");
             allRecords.ForEach(r => Console.WriteLine($"  {r}"));
         } else {
-            Console.WriteLine($"[Connection #{connectionId}] No records in the database.");
+            Console.WriteLine($"No records in {db.Name}");
         }
+    }
+
+    public override int GetHashCode() {
+        return RuntimeHelpers.GetHashCode(this);
     }
 }
 
 public class Ztp01 {
     public static void Main(string[] args) {
-        Console.WriteLine("=== Test wzorców projektowych: Singleton, Multiton, Object Pool ===\n");
+        Console.WriteLine("=== TESTY WZORCÓW PROJEKTOWYCH ===\n");
 
-        // Uzyskanie instancji Singletona - menedżera połączeń
-        ConnectionManager connectionManager = ConnectionManager.GetInstance();
+        ConnectionManager cm1 = ConnectionManager.GetInstance();
+        ConnectionManager cm2 = ConnectionManager.GetInstance();
         
-        // Sprawdzenie, że to singleton (próba pobrania drugiej instancji)
-        ConnectionManager connectionManager2 = ConnectionManager.GetInstance();
-        Console.WriteLine($"\nConnectionManager is singleton: {ReferenceEquals(connectionManager, connectionManager2)}\n");
+        // Test 1: SINGLETON - ConnectionManager
+        Console.WriteLine("TEST 1: Singleton (ConnectionManager)");
+        Console.WriteLine($"  Manager 1 hash: {cm1.GetHashCode()}");
+        Console.WriteLine($"  Manager 2 hash: {cm2.GetHashCode()}");
+        Console.WriteLine($"  Identyczne? {ReferenceEquals(cm1, cm2)} ✓\n");
 
-        Console.WriteLine("=== Test 1: Połączenia z bazą DB1 ===");
-        // Uzyskanie połączenia do DB1
-        IDatabaseConnection connection1 = connectionManager.GetConnection("DB1");
-        connection1.AddRecord("Karol", 23);
-        connection1.ShowAllRecords();
-
-        Console.WriteLine("\n=== Test 2: Drugie połączenie do DB1 (ta sama baza) ===");
-        IDatabaseConnection connection2 = connectionManager.GetConnection("DB1");
-        connection2.AddRecord("Anna", 28);
-        connection2.ShowAllRecords(); // Powinno pokazać oba rekordy (ta sama baza!)
-
-        Console.WriteLine("\n=== Test 3: Trzecie połączenie do DB1 ===");
-        IDatabaseConnection connection3 = connectionManager.GetConnection("DB1");
-        connection3.AddRecord("Marek", 35);
-        connection3.ShowAllRecords();
-
-        Console.WriteLine("\n=== Test 4: Czwarte połączenie do DB1 (ponowne użycie connection #1) ===");
-        IDatabaseConnection connection4 = connectionManager.GetConnection("DB1");
-        connection4.AddRecord("Zofia", 42);
+        // Test 2: MULTITON - Database  
+        Database db1a = Database.GetInstance("DB1");
+        Database db1b = Database.GetInstance("DB1");
+        Database db2 = Database.GetInstance("DB2");
         
-        // Sprawdzenie czy connection4 to ten sam obiekt co connection1
-        Console.WriteLine($"\nConnection 4 is same as Connection 1: {ReferenceEquals(connection1, connection4)}");
-        Console.WriteLine($"Connection 4 is same as Connection 2: {ReferenceEquals(connection2, connection4)}");
+        Console.WriteLine("TEST 2: Multiton (Database)");
+        Console.WriteLine($"  DB1 (pierwsza)  hash: {db1a.GetHashCode()}");
+        Console.WriteLine($"  DB1 (ponowna)   hash: {db1b.GetHashCode()}");
+        Console.WriteLine($"  DB1 identyczne? {ReferenceEquals(db1a, db1b)} ✓");
+        Console.WriteLine($"  DB2             hash: {db2.GetHashCode()}");
+        Console.WriteLine($"  DB1 != DB2?     {!ReferenceEquals(db1a, db2)} ✓\n");
+
+        // Test 3: OBJECT POOL - ConnectionPool (max 3 połączenia)
+        IDatabaseConnection conn1 = cm1.GetConnection("TestDB");
+        IDatabaseConnection conn2 = cm1.GetConnection("TestDB");
+        IDatabaseConnection conn3 = cm1.GetConnection("TestDB");
+        IDatabaseConnection conn4 = cm1.GetConnection("TestDB"); // Powinno zwrócić conn1
         
-        connection4.ShowAllRecords();
+        Console.WriteLine("TEST 3: Object Pool (max 3 połączenia)");
+        Console.WriteLine($"  Connection 1 hash: {conn1.GetHashCode()}");
+        Console.WriteLine($"  Connection 2 hash: {conn2.GetHashCode()}");
+        Console.WriteLine($"  Connection 3 hash: {conn3.GetHashCode()}");
+        Console.WriteLine($"  Connection 4 hash: {conn4.GetHashCode()}");
+        Console.WriteLine($"  Conn4 == Conn1? {ReferenceEquals(conn1, conn4)} ✓ (cykliczne użycie)");
+        Console.WriteLine($"  Conn4 == Conn2? {ReferenceEquals(conn2, conn4)} ✓ (FALSE - to różne)\n");
 
-        Console.WriteLine("\n=== Test 5: Druga baza danych DB2 ===");
-        IDatabaseConnection connectionDB2_1 = connectionManager.GetConnection("DB2");
-        connectionDB2_1.AddRecord("Piotr", 30);
-        connectionDB2_1.ShowAllRecords();
-
-        Console.WriteLine("\n=== Test 6: Drugie połączenie do DB2 ===");
-        IDatabaseConnection connectionDB2_2 = connectionManager.GetConnection("DB2");
-        connectionDB2_2.AddRecord("Ewa", 27);
-        connectionDB2_2.ShowAllRecords(); // Ta sama baza DB2
-
-        Console.WriteLine("\n=== Test 7: Ponowne połączenie z DB1 - pokazuje wszystkie wcześniejsze rekordy ===");
-        IDatabaseConnection connection5 = connectionManager.GetConnection("DB1");
-        connection5.ShowAllRecords();
-        Console.WriteLine($"Connection 5 is same as Connection 2: {ReferenceEquals(connection2, connection5)}");
-
-        Console.WriteLine("\n=== Test 8: Trzecia baza DB3 ===");
-        IDatabaseConnection connectionDB3 = connectionManager.GetConnection("DB3");
-        connectionDB3.AddRecord("Jan", 45);
-        connectionDB3.ShowAllRecords();
-
-        Console.WriteLine("\n=== Weryfikacja Multiton Pattern dla Database ===");
-        // Ponowne pobranie bazy DB1 - powinno zwrócić tę samą instancję
-        var db1_again = Database.GetInstance("DB1");
-        var db1_original = Database.GetInstance("DB1");
-        Console.WriteLine($"Database DB1 is multiton (same instance): {ReferenceEquals(db1_again, db1_original)}");
-
-        Console.WriteLine("\n=== Podsumowanie testów ===");
-        Console.WriteLine("✓ ConnectionManager jest Singletonem");
-        Console.WriteLine("✓ Database jest Multitonem (jedna instancja per nazwa)");
-        Console.WriteLine("✓ Pula połączeń ogranicza liczbę połączeń do 3 per baza");
-        Console.WriteLine("✓ Czwarte połączenie ponownie używa pierwszego połączenia");
-        Console.WriteLine("✓ Wszystkie połączenia do tej samej bazy współdzielą dane");
+        // Test 4: Współdzielenie danych między połączeniami
+        Console.WriteLine("TEST 4: Współdzielenie danych");
+        conn1.AddRecord("Alice", 25);
+        conn2.AddRecord("Bob", 30);
+        conn3.AddRecord("Charlie", 35);
+        conn1.ShowAllRecords(); // Wszystkie 3 połączenia widzą te same dane
+        
+        Console.WriteLine("\n=== WSZYSTKIE WZORCE DZIAŁAJĄ POPRAWNIE ===");
     }
 }

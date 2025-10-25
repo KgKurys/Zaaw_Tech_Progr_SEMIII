@@ -1,0 +1,14 @@
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\bin\Debug\net9.0\ZTP.exe
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\bin\Debug\net9.0\ZTP.deps.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\bin\Debug\net9.0\ZTP.runtimeconfig.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\bin\Debug\net9.0\ZTP.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\bin\Debug\net9.0\ZTP.pdb
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.AssemblyInfoInputs.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.AssemblyInfo.cs
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.csproj.CoreCompileInputs.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\refint\ZTP.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.pdb
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ZTP.genruntimeconfig.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\PS1\ZTP\obj\Debug\net9.0\ref\ZTP.dll

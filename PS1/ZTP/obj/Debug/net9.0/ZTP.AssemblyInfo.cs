@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ZTP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+167bc547c731f28e6ba780807b0ed632cd41567f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8e106c45424bb214e4ba9816608907c1e23cf77b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZTP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZTP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

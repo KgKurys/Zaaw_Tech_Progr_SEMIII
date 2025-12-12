@@ -1,27 +1,4 @@
-﻿/*
- * Zadanie: System zarządzania bazami danych z wzorcami projektowymi
- * 
- * Zaimplementowane wzorce:
- * 1. SINGLETON - ConnectionManager
- *    - Tylko jedna instancja menadżera połączeń w całym systemie
- *    - Thread-safe implementacja (double-checked locking)
- * 
- * 2. MULTITON - Database
- *    - Każda baza jest identyfikowana po nazwie
- *    - Dla tej samej nazwy zawsze zwracana jest ta sama instancja
- *    - Różne nazwy tworzą różne instancje baz danych
- * 
- * 3. OBJECT POOL - ConnectionPool
- *    - Ogranicza liczbę równoczesnych połączeń do bazy (max 3)
- *    - Po osiągnięciu limitu, połączenia są ponownie wykorzystywane cyklicznie
- *    - Czwarte żądanie połączenia zwraca pierwsze połączenie
- * 
- * Architektura:
- * - Klient używa tylko ConnectionManager (singleton)
- * - ConnectionManager zarządza wieloma bazami danych (multiton)
- * - Każda baza ma swoją pulę połączeń (object pool)
- */
-
+﻿
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -38,7 +15,7 @@ interface IDatabaseConnection {
     void ShowAllRecords();
 }
 
-// Prosty rekord w bazie danych
+//rekord w bazie danych
 class Record {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -119,7 +96,7 @@ class ConnectionManager : IConnectionManager {
     }
 }
 
-// Prosta baza danych z wzorcem Multiton
+//baza danych z wzorcem Multiton
 class Database {
 
     private readonly List<Record> records; // Lista przechowująca rekordy
@@ -247,16 +224,16 @@ public class Ztp01 {
         Console.WriteLine($"  Identyczne? {ReferenceEquals(cm1, cm2)} ✓\n");
 
         // Test 2: MULTITON - Database  
-        Database db1a = Database.GetInstance("DB1");
-        Database db1b = Database.GetInstance("DB1");
-        Database db2 = Database.GetInstance("DB2");
+        Database db1a = Database.GetInstance("DB1"); // Pierwsze pobranie DB1 - tworzy nową instancję
+        Database db1b = Database.GetInstance("DB1"); // Drugie pobranie DB1 - zwraca istniejącą instancję
+        Database db2 = Database.GetInstance("DB2");  // Pierwsze pobranie DB2 - tworzy nową instancję
         
         Console.WriteLine("TEST 2: Multiton (Database)");
-        Console.WriteLine($"  DB1 (pierwsza)  hash: {db1a.GetHashCode()}");
-        Console.WriteLine($"  DB1 (ponowna)   hash: {db1b.GetHashCode()}");
-        Console.WriteLine($"  DB1 identyczne? {ReferenceEquals(db1a, db1b)} ✓");
-        Console.WriteLine($"  DB2             hash: {db2.GetHashCode()}");
-        Console.WriteLine($"  DB1 != DB2?     {!ReferenceEquals(db1a, db2)} ✓\n");
+        Console.WriteLine($"  DB1 (pierwsze wywołanie)  hash: {db1a.GetHashCode()}");
+        Console.WriteLine($"  DB1 (ponowne wywołanie)   hash: {db1b.GetHashCode()}");
+        Console.WriteLine($"  DB1a == DB1b? {ReferenceEquals(db1a, db1b)} ✓ (ta sama instancja!)");
+        Console.WriteLine($"  DB2          hash: {db2.GetHashCode()}");
+        Console.WriteLine($"  DB1 != DB2?   {!ReferenceEquals(db1a, db2)} ✓ (różne instancje!)\n");
 
         // Test 3: OBJECT POOL - ConnectionPool (max 3 połączenia)
         IDatabaseConnection conn1 = cm1.GetConnection("TestDB");
@@ -270,14 +247,24 @@ public class Ztp01 {
         Console.WriteLine($"  Connection 3 hash: {conn3.GetHashCode()}");
         Console.WriteLine($"  Connection 4 hash: {conn4.GetHashCode()}");
         Console.WriteLine($"  Conn4 == Conn1? {ReferenceEquals(conn1, conn4)} ✓ (cykliczne użycie)");
-        Console.WriteLine($"  Conn4 == Conn2? {ReferenceEquals(conn2, conn4)} ✓ (FALSE - to różne)\n");
+        Console.WriteLine($"  Conn4 == Conn2? {ReferenceEquals(conn2, conn4)} ✓ (różne obiekty)\n");
 
         // Test 4: Współdzielenie danych między połączeniami
-        Console.WriteLine("TEST 4: Współdzielenie danych");
+        Console.WriteLine("TEST 4: Kilka połączeń korzysta z tego samego obiektu bazy");
+        
+        // Dodajemy rekordy przez różne połączenia
+        Console.WriteLine("  Conn1 dodaje rekord 'Alice'");
         conn1.AddRecord("Alice", 25);
+        
+        Console.WriteLine("  Conn2 dodaje rekord 'Bob'");
         conn2.AddRecord("Bob", 30);
+        
+        Console.WriteLine("  Conn3 dodaje rekord 'Charlie'");
         conn3.AddRecord("Charlie", 35);
-        conn1.ShowAllRecords(); // Wszystkie 3 połączenia widzą te same dane
+        
+        // Sprawdzamy czy conn1 widzi rekordy dodane przez conn2 i conn3
+        Console.WriteLine("\n  Conn1 wyświetla wszystkie rekordy:");
+        conn1.ShowAllRecords();
         
         Console.WriteLine("\n=== WSZYSTKIE WZORCE DZIAŁAJĄ POPRAWNIE ===");
     }

@@ -1,0 +1,15 @@
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\bin\Debug\net9.0\proxy.exe
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\bin\Debug\net9.0\proxy.deps.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\bin\Debug\net9.0\proxy.runtimeconfig.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\bin\Debug\net9.0\proxy.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\bin\Debug\net9.0\proxy.pdb
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.AssemblyInfoInputs.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.AssemblyInfo.cs
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.csproj.CoreCompileInputs.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.sourcelink.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\refint\proxy.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.pdb
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\proxy.genruntimeconfig.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\proxy\obj\Debug\net9.0\ref\proxy.dll

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kggra\\Documents\\GitHub\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj": {}
+    "C:\\Users\\kggra\\Documents\\GIT\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kggra\\Documents\\GitHub\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj": {
+    "C:\\Users\\kggra\\Documents\\GIT\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kggra\\Documents\\GitHub\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj",
+        "projectUniqueName": "C:\\Users\\kggra\\Documents\\GIT\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj",
         "projectName": "ZTP",
-        "projectPath": "C:\\Users\\kggra\\Documents\\GitHub\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj",
+        "projectPath": "C:\\Users\\kggra\\Documents\\GIT\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\ZTP.csproj",
         "packagesPath": "C:\\Users\\kggra\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kggra\\Documents\\GitHub\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\obj\\",
+        "outputPath": "C:\\Users\\kggra\\Documents\\GIT\\Zaaw_Tech_Progr_SEMIII\\PS1\\ZTP\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kggra\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -59,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

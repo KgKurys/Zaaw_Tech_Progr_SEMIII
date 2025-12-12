@@ -1,0 +1,15 @@
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\bin\Debug\net9.0\adapter.exe
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\bin\Debug\net9.0\adapter.deps.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\bin\Debug\net9.0\adapter.runtimeconfig.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\bin\Debug\net9.0\adapter.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\bin\Debug\net9.0\adapter.pdb
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.AssemblyInfoInputs.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.AssemblyInfo.cs
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.csproj.CoreCompileInputs.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.sourcelink.json
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\refint\adapter.dll
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.pdb
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\adapter.genruntimeconfig.cache
+C:\Users\kggra\Documents\GitHub\Zaaw_Tech_Progr_SEMIII\adapter\obj\Debug\net9.0\ref\adapter.dll
